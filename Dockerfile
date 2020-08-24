@@ -1,8 +1,13 @@
-# our base image
-FROM python:3-onbuild
+Вариант 1
+FROM python:3.8.2
 
-# specify the port number the container should expose
-EXPOSE 5000
+COPY requirements.txt ./
+RUN pip install --requirement ./requirements.txt
+COPY main.py ./
+COPY data.json ./
+COPY models.py ./
 
-# run the application
-CMD ["python", "./main.py"]
+
+ENTRYPOINT uvicorn main:app --reload
+
+# CMD ["python", "./main.py"]
