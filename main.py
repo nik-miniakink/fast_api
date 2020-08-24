@@ -22,7 +22,7 @@ async def create_item(cargo_type: str = 'None', declared_value: int = 0):
     Обновляем все значения
     Считаем страховку
     Выдаем ответ
-    ВАЖНО - Актуальный тариф на день запроса.
+    ВАЖНО - Актуальный тариф - тариф на деньдень запроса.
     """
     for date in data:
         if data[date]:
@@ -32,8 +32,6 @@ async def create_item(cargo_type: str = 'None', declared_value: int = 0):
                     rate = rez['rate']
                     await Item.get_or_create(date=date, cargo_type=cargo)
                     await Item.filter(date=date, cargo_type=cargo).update(rate=rate)
-            # else:
-            #     return {"mes":"Мы не обрабатывает такой груз"}
         else:
             return{"mes": " Мы пока не подобрали тариф на эту дату"}
 
